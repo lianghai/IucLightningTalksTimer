@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A2175951253B461800A02498 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2175950253B461800A02498 /* TimerView.swift */; };
+		A2175954253B464B00A02498 /* SignboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2175953253B464B00A02498 /* SignboardView.swift */; };
 		A2D598BD253A2D2400A75481 /* IucLightningTalksTimerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D598BC253A2D2400A75481 /* IucLightningTalksTimerApp.swift */; };
 		A2D598BF253A2D2400A75481 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D598BE253A2D2400A75481 /* ContentView.swift */; };
 		A2D598C1253A2D2700A75481 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A2D598C0253A2D2700A75481 /* Assets.xcassets */; };
@@ -14,6 +16,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A2175950253B461800A02498 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
+		A2175953253B464B00A02498 /* SignboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignboardView.swift; sourceTree = "<group>"; };
 		A2D598B9253A2D2400A75481 /* IucLightningTalksTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IucLightningTalksTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2D598BC253A2D2400A75481 /* IucLightningTalksTimerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IucLightningTalksTimerApp.swift; sourceTree = "<group>"; };
 		A2D598BE253A2D2400A75481 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -54,6 +58,8 @@
 			children = (
 				A2D598BC253A2D2400A75481 /* IucLightningTalksTimerApp.swift */,
 				A2D598BE253A2D2400A75481 /* ContentView.swift */,
+				A2175950253B461800A02498 /* TimerView.swift */,
+				A2175953253B464B00A02498 /* SignboardView.swift */,
 				A2D598C0253A2D2700A75481 /* Assets.xcassets */,
 				A2D598C5253A2D2700A75481 /* Info.plist */,
 				A2D598C2253A2D2700A75481 /* Preview Content */,
@@ -138,7 +144,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2175951253B461800A02498 /* TimerView.swift in Sources */,
 				A2D598BF253A2D2400A75481 /* ContentView.swift in Sources */,
+				A2175954253B464B00A02498 /* SignboardView.swift in Sources */,
 				A2D598BD253A2D2400A75481 /* IucLightningTalksTimerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
