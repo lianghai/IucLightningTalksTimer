@@ -2,102 +2,87 @@ import SwiftUI
 
 struct TimerView_Previews: PreviewProvider {
     static var previews: some View {
-        TimerView()
+        TimerView(subject: "Lightning Talks, IUC #44", seconds: 11)
+            .preferredColorScheme(.dark)
+            .previewDevice("iPad Pro (11-inch) (2nd generation)")
     }
 }
 
 struct TimerView: View {
 
-    static let defaultHours = 0
-    static let defaultMinutes = 5
-    static let defaultSeconds = 0
+    let subject: String
+    let initial: TimeInterval
+    let formatter = DateComponentsFormatter()
 
-    @State var hours: Int = TimerView.defaultHours
-    @State var minutes: Int = TimerView.defaultMinutes
-    @State var seconds: Int = TimerView.defaultSeconds
-
+    @State var remaining: TimeInterval = 0
     @State var timer: Timer?
-    @State var isRunning = false
+
+    init(subject: String, seconds: Int) {
+        self.subject = subject
+        initial = TimeInterval(seconds)
+        formatter.unitsStyle = .positional
+        formatter.allowedUnits = [.minute, .second]
+        formatter.zeroFormattingBehavior = []
+    }
 
     var body: some View {
 
         VStack {
 
-            Spacer()
-
-            Text("\(minutes):\(String(format: "%02d", seconds))")
-                .font(Font.system(size: 400, weight: .regular, design: .rounded).monospacedDigit())
-                .bold()
+            Text(formatter.string(from: remaining) ?? "")
+                .font(Font.system(size: 400, weight: .bold, design: .rounded).monospacedDigit())
+                .minimumScaleFactor(0.5)
+                .lineLimit(1)
                 .foregroundColor(
-                    minutes > 0 ? .white
-                        : seconds > 10 ? .orange
-                        : seconds > 0 ? .red : .white
+                    remaining > 60 ? Color(.label)
+                        : remaining > 10 ? Color(.systemOrange)
+                        : remaining > 0 ? Color(.systemRed) : Color(.label)
                 )
+                .onAppear { remaining = initial }
 
-            HStack {
+            VStack(spacing: 50) {
 
-                Spacer()
+                HStack(spacing: 100) {
 
-                Button {
-                    !isRunning ? startTimer() : stopTimer()
-                } label: {
-                    !isRunning
-                        ? Image(systemName: "play.circle.fill").accentColor(.white)
-                        : Image(systemName: "pause.circle.fill").accentColor(.white)
+                    Button(action: timer == nil ? start : pause) {
+                        timer == nil
+                            ? Image(systemName: "play.circle.fill")
+                            : Image(systemName: "pause.circle.fill")
+                    }
+                    .disabled(remaining == 0)
+
+                    Button(action: reset) {
+                        Image(systemName: "stop.circle.fill")
+                    }
+                    .disabled(remaining == initial)
                 }
-                .disabled(hours == 0 && minutes == 0 && seconds == 0)
-                .padding()
+                .font(Font.system(size: 100, weight: .heavy))
+                .accentColor(Color(.label))
 
-                Button {
-                    hours = TimerView.defaultHours
-                    minutes = TimerView.defaultMinutes
-                    seconds = TimerView.defaultSeconds
-                    stopTimer()
-                } label: {
-                    Image(systemName: "stop.circle.fill").accentColor(.white)
-                }
-                .disabled(hours == TimerView.defaultHours && minutes == TimerView.defaultMinutes && seconds == TimerView.defaultSeconds)
-                .padding()
-
-                Spacer()
-
-            }.font(Font.system(size: 100, weight: .heavy))
-
-            Text("Lightning Talks, IUC #44")
-                .font(Font.system(size: 80, weight: .heavy))
-                .padding()
-
-            Spacer()
+                Text(subject)
+                    .font(Font.system(size: 80, weight: .heavy))
+            }
         }
-        .background(
-            minutes > 0 ? Color.clear
-                : seconds > 10 ? .clear
-                : seconds > 0 ? .clear : .red
-        )
+        .padding(.horizontal)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(remaining > 0 ? Color(.clear) : Color(.systemRed))
     }
 
-    func startTimer() {
-        isRunning = true
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { tempTimer in
-            if hours == 0, minutes == 0, seconds == 0 {
-                stopTimer()
-            } else if seconds == 0 {
-                seconds = 59
-                if minutes == 0 {
-                    minutes = 59
-                    hours -= 1
-                } else {
-                    minutes -= 1
-                }
+    func start() {
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+            if remaining == 0 {
+                pause()
             } else {
-                seconds -= 1
+                remaining -= 1
             }
         }
     }
-
-    func stopTimer() {
-        isRunning = false
+    func pause() {
         timer?.invalidate()
         timer = nil
+    }
+    func reset() {
+        pause()
+        remaining = initial
     }
 }

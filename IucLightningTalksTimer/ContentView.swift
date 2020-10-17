@@ -9,9 +9,10 @@ struct ContentView_Previews: PreviewProvider {
 }
 
 struct ContentView: View {
+    let lightningTalks = "Lightning Talks, IUC #44"
+    let timeLimit = 5 * 60
     var body: some View {
-        TimerView()
-            .edgesIgnoringSafeArea(.all)
-            .statusBar(hidden: true)
+        TimerView(countDown: timeLimit, for: subject)
+        TimerView(subject: lightningTalks, seconds: timeLimit)
     }
 }
