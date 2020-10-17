@@ -9,10 +9,15 @@ struct ContentView_Previews: PreviewProvider {
 }
 
 struct ContentView: View {
+
     let lightningTalks = "Lightning Talks, IUC #44"
     let timeLimit = 5 * 60
+
+    let iuc = "IUC #44, 14–16 October 2020"
+    let seeYou = "See you next year!"
+
     var body: some View {
-        TimerView(countDown: timeLimit, for: subject)
         TimerView(subject: lightningTalks, seconds: timeLimit)
+//        SignboardView(subject: iuc, text: seeYou)
     }
 }
